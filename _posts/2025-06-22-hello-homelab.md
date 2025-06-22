@@ -1,8 +1,8 @@
 ---
 title: Hello Homelab
 date: 2025-06-21 17:30:00 +0300
-categories: [homelab,hardware]
-tags: [servers,hp]                     # Tag names should always be lowercase
+categories: [homelab]
+tags: [welcome]                     # Tag names should always be lowercase
 ---
 
 # Welcome
