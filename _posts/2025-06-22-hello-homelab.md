@@ -1,14 +1,16 @@
 ---
 title: Hello Homelab
-date: 2025-06-21 18:00:00 -500
+date: 2025-06-21 17:30:00 +0300
 categories: [homelab,hardware]
 tags: [servers,hp]                     # Tag names should always be lowercase
 ---
 
-
 # Welcome
 
 Hello and welcome to my homelab docs site!
+
+![img-description](/assets/img/hello-homelab/welcome_post.webp){: w="500" h="500" }
+
 
 This blog is dedicated to documenting my journey in building, maintaining, and experimenting with my personal homelab. Here, you'll find guides, hardware reviews, troubleshooting notes, and project updates as I explore the world of self-hosted services, networking, and server hardware.
 
