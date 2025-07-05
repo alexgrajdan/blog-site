@@ -1,11 +1,17 @@
 ---
 title: Hello Homelab
 date: 2025-06-22 17:30:00 +0300
-categories: [homelab]
-tags: [welcome]                     # Tag names should always be lowercase
+categories: welcome
+tags: welcome                     # Tag names should always be lowercase
 image:
   path: /assets/img/headers/hello-homelab.webp
   lqip: data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAACQAwCdASoUAA0APzmGulQvKSWjMAgB4CcJagCdABQrvAHdQDUAAP6pLVLpGl0c9u6xIVsdNb2Lhz2OyF9OqiH0wK/VVb7w7WE3Q4+ZEOT4GXGsIPpj8fTqXDnutfXN8r6CABGfEXjZ9/VoqZV+ElMQnd9kBnBJ0PgQTJ8AAAA=
+
+  # lqip = Low-Quality Image Placeholder
+  # This is used for faster loading times
+  # install imagemagick
+  # convert assets/img/headers/hello-homelab.webp -resize 20x20 -quality 20 -strip assets/img/headers/hello-homelab-lqip.webp
+  # base64 -w 0 assets/img/headers/hello-homelab-lqip.webp > lqip.txt
 ---
 
 # Welcome
