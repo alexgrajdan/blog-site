@@ -3,14 +3,14 @@ title: Hello Homelab
 date: 2025-06-22 17:30:00 +0300
 categories: [homelab]
 tags: [welcome]                     # Tag names should always be lowercase
+image:
+  path: /assets/img/headers/hello-homelab.webp
+  lqip: data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAACQAwCdASoUAA0APzmGulQvKSWjMAgB4CcJagCdABQrvAHdQDUAAP6pLVLpGl0c9u6xIVsdNb2Lhz2OyF9OqiH0wK/VVb7w7WE3Q4+ZEOT4GXGsIPpj8fTqXDnutfXN8r6CABGfEXjZ9/VoqZV+ElMQnd9kBnBJ0PgQTJ8AAAA=
 ---
 
 # Welcome
 
 Hello and welcome to my homelab docs site!
-
-![img-description](/assets/img/hello-homelab/welcome_post.webp){: w="500" h="500" }
-
 
 This blog is dedicated to documenting my journey in building, maintaining, and experimenting with my personal homelab. Here, you'll find guides, hardware reviews, troubleshooting notes, and project updates as I explore the world of self-hosted services, networking, and server hardware.
 
