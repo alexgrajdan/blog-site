@@ -76,7 +76,7 @@ This two-system approach means my applications run fast on one machine, while my
 There is no single "right" way to build a homelab. This is how I did it.
 
 I will post new topics about:
-- how I did soma automations using Packer & Terraform
+- how I did some automations using Packer & Terraform
 - how I setup a Docker machine
 - how I plan to develop a k8s cluster
 
