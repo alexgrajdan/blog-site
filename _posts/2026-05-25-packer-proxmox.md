@@ -4,8 +4,8 @@ date: 2026-05-25 17:30:00 +0300
 categories: iac
 tags: proxmox sops age packer                  # Tag names should always be lowercase
 image:
-  path: /assets/img/headers/packer&proxmox.webp
-  lqip: UklGRqYAAABXRUJQVlA4IJoAAACwBACdASoUAAgAPpE6l0eloyIhMAgAsBIJbACdMoR4JhHiIiEhQEpWd39iuAEAAOJkqChbdRtYHX3nRTKVIb/dyM3eBDsu6kQhWAPj+CzphH0gEwT09TDj9bvaAKO0uwqH+R6AAh6WfASE/C202tkAOr84SLt5LLt2r/k2xGfSbkW/iUP9p6LKPA7P4xqW6K+6fvwWt/XQqgAA
+  path: /assets/img/headers/packer-proxmox.webp
+  lqip: data:image/webp;UklGRqYAAABXRUJQVlA4IJoAAAAQBACdASoUAAkAPpE4l0eloyIhMAgAsBIJagCdAB6yLRyJ5OZntnhGSAD+7Sdgo1OQfbxqM9qibR75NAA8thT9T2h/HVdtBXsz481nn9+YC/nhipq7njF9OBtEvSmL7f042QNwy/kXKJG7SXJlUV5t55oGzKJfYbBpQa0FPoKGXNMzBnSUaUoAxrqJccrh88a5QPFyfKpB4UAA
 ---
 
 # Building Templates in Proxmox VE using Packer
