@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 
 gem "jekyll-theme-chirpy", "~> 7.3"
-gem "sass-embedded", "~> 1.69" # Pin to a stable version with working precompiled binaries
+gem "sass-embedded", "~> 1.99.0" # Pin to a stable version with working precompiled binaries
 gem "html-proofer", "~> 5.0", group: :test
 
 platforms :mingw, :x64_mingw, :mswin, :jruby do
