@@ -4,13 +4,8 @@ date: 2026-05-25 17:30:00 +0300
 categories: iac
 tags: proxmox sops age packer                  # Tag names should always be lowercase
 image:
-  path: 
-  lqip: 
-  # lqip = Low-Quality Image Placeholder
-  # This is used for faster loading times
-  # install imagemagick
-  # convert assets/img/headers/hello-homelab.webp -resize 20x20 -quality 20 -strip assets/img/headers/hello-homelab-lqip.webp
-  # base64 -w 0 assets/img/headers/hello-homelab-lqip.webp > lqip.txt
+  path: /assets/img/headers/packer&proxmox.webp
+  lqip: UklGRqYAAABXRUJQVlA4IJoAAACwBACdASoUAAgAPpE6l0eloyIhMAgAsBIJbACdMoR4JhHiIiEhQEpWd39iuAEAAOJkqChbdRtYHX3nRTKVIb/dyM3eBDsu6kQhWAPj+CzphH0gEwT09TDj9bvaAKO0uwqH+R6AAh6WfASE/C202tkAOr84SLt5LLt2r/k2xGfSbkW/iUP9p6LKPA7P4xqW6K+6fvwWt/XQqgAA
 ---
 
 # Building Templates in Proxmox VE using Packer
