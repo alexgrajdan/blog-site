@@ -181,7 +181,7 @@ sops -d secrets.enc.json > tmp_secrets.json
 packer build -var-file=tmp_secrets.json .
 ```
 
-# Key Takeaways for Your Own Journey
+# Key Takeaways
 1. JSON for Secrets, HCL for Definitions
 Keep your variable definitions in HCL so you can write comments and documentation. Keep your values in JSON because SOPS handles it better, allowing you to see which "keys" changed in Git while keeping the "values" encrypted.
 2. The Power of **`.sops.yaml`**
