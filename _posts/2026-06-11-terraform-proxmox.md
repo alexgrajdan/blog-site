@@ -1,6 +1,6 @@
 ---
 title: Terraform in Proxmox VE
-date: 2026-05-25 17:30:00 +0300
+date: 2026-06-11 17:30:00 +0300
 categories: iac
 tags: proxmox sops age terraform                  # Tag names should always be lowercase
 image:
