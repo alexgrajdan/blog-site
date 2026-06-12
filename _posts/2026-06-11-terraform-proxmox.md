@@ -55,8 +55,11 @@ sudo apt install age
 mkdir -p ~/.age
 age-keygen -o ~/.age/age.agekey
 ```
-> [!NOTE] 
-> Make sure to keep the public key (starting with age1...) handy for the encryption step.
+<!-- markdownlint-capture -->
+<!-- markdownlint-disable -->
+> Make sure to keep the public key (starting with `age1...`) handy for the encryption step.
+{: .prompt-info }
+<!-- markdownlint-restore -->
 
 # 🔐 The Security Strategy: SOPS + age
 
