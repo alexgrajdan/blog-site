@@ -1,7 +1,7 @@
 ---
 title: Terraform in Proxmox VE
 date: 2026-06-11 17:30:00 +0300
-categories: iac
+categories: IaC
 tags: proxmox sops age terraform                  # Tag names should always be lowercase
 image:
   path: /assets/img/headers/terraform-proxmox.webp
