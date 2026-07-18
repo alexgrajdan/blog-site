@@ -1,8 +1,8 @@
 ---
 title: Getting started with Ansible
 date: 2026-07-16 22:00:00 +0300
-categories: automation
-tags: ansible                     # Tag names should always be lowercase
+categories: IaC
+tags: ansible automation                     # Tag names should always be lowercase
 image:
   path: /assets/img/headers/hello-homelab.webp
   lqip: data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAACQAwCdASoUAA0APzmGulQvKSWjMAgB4CcJagCdABQrvAHdQDUAAP6pLVLpGl0c9u6xIVsdNb2Lhz2OyF9OqiH0wK/VVb7w7WE3Q4+ZEOT4GXGsIPpj8fTqXDnutfXN8r6CABGfEXjZ9/VoqZV+ElMQnd9kBnBJ0PgQTJ8AAAA=
@@ -16,9 +16,30 @@ image:
 
 # Getting started with Ansible
 
-Ansible is a great choice when it comes to automate tasks on your VMs.
+## What is Ansible?
 
-# Step 1: Install Ansible
+Ansible is an *open-source IT automation engine* that automates configuration management, application deployment, cloud provisioning, and multi-node orchestration. Unlike many traditional automation tools, Ansible is **agentless**, meaning it does not require you to install any background software on the servers you wish to manage. Instead, it securely connects to target machines via standard protocols like SSH (for Linux) or WinRM (for Windows) to execute tasks using human-readable YAML files called *playbooks*.
+
+## Why use Ansible?
+
+Manually configuring servers one by one is time-consuming, prone to human error, and difficult to scale. You might want to adopt Ansible to:
+
+- **Eliminate Repetitive Work**: Tasks like patching operating systems, updating packages, or creating users can be run across dozens of servers simultaneously with a single command.
+- **Achieve Consistency (Idempotence)**: Ansible guarantees that a playbook *will only make changes if the system is not already in the desired state*. Re-running a playbook on a correctly configured server changes nothing, keeping your environment stable.
+- **Adopt Infrastructure as Code (IaC)**: Because Ansible configurations are plain text YAML files, they *can be stored, versioned, and tracked in Git*. This allows teams to review, share, and roll back infrastructure changes just like software code.
+- **Orchestrate Complex Workflows**: Ansible can coordinate multi-tier deployments, ensuring database servers are updated and running before the web servers connect to them.
+
+## Pros & Cons
+
+| Pros              | Cons |
+| :---------------- | :------ | 
+| **Agentless**: No agent software to install or maintain on target nodes.        |   **Slower Execution**: Relying on SSH connection overhead can slow down tasks   | 
+| **Simple YAML**: Highly readable syntax that is easy for beginners to learn.           |   **No State Tracking**: Does not actively track infrastructure drift like Terraform does.   | 
+| **Idempotent**: Safely re-runs playbooks without altering already-configured systems.    |  **Clunky Logic**: Advanced programming logic (like complex loops) is difficult to write in YAML.   | 
+| **Huge Ecosystem**: Thousands of pre-built modules and community roles ready to use. |  **Windows Setup**: Configuring WinRM for Windows targets is more complex than Linux SSH   | 
+
+
+## Step 1: Install Ansible
 
 Ansible only needs to be installed on the control node (the machine from which you will run commands). The target nodes do not need Ansible installed, as long as they have Python and SSH running.
 
@@ -41,7 +62,7 @@ Verify the installation by running:
 ansible --version
 ```
 
-# Step 2: Setup dedicated user
+## Step 2: Setup dedicated user
 
 For security and organization, it is recommended to create a dedicated user named `ansible` on both the control machine and all target machines.
 
@@ -52,7 +73,7 @@ sudo adduser ansible
 
 After running this command, you will be prompted to privide the password and some optional details
 
-# Step 3: Setup NOPASSWD for Ansible user on Target Machines
+## Step 3: Setup NOPASSWD for Ansible user on Target Machines
 
 To allow the `ansible` user to execute administrative commands (like installing packages) without prompting for a password, you need to configure sudo privileges on the **target machines**.
 
@@ -66,7 +87,7 @@ ansible ALL=(ALL) NOPASSWD:ALL
 ```
 3. Save and exit by typing `:wq`
 
-# Step 3: Edit hosts file from the Controller Machine
+## Step 4: Edit hosts file from the Controller Machine
 
 This is like an optional step, but very useful. The purpose is to use hostnames instead of IP addresses to reffer to the target machines.
 
@@ -89,7 +110,7 @@ sudo vim /etc/hosts
 
 <!-- markdownlint-restore -->
 
-# Step 4: Generate SSH Keys and Copy them to Target Machines
+## Step 5: Generate SSH Keys and Copy them to Target Machines
 
 Ansible uses SSH to communicate with target machines. You should set up SSH key-based authentication so the control machine can log in without typing a password.
 
@@ -111,7 +132,7 @@ ssh-copy-id ansible@<target_ip_address>
 # Or if you have add the targets on your /etc/hosts file
 ssh-copy-id ansible@<target_hostname>
 ```
-# Step 5: How to Test the Connection with an Ad-Hoc Ping
+## Step 6: How to Test the Connection with an Ad-Hoc Ping
 
 An ad-hoc command is a quick, one-line Ansible command used to perform a single task.
 To test if your control machine can communicate with the target, run the `ping` module (this is an **Ansible-specific ping**, not an ICMP ping):
@@ -135,7 +156,7 @@ If successful, you will see a response containing:
 }
 ```
 
-# Step 6: Test Other Ad-Hoc Commands
+## Step 7: Test Other Ad-Hoc Commands
 
 Ad-hoc commands are highly useful for quick tasks. The syntax structure is:
 ```bash
@@ -152,7 +173,7 @@ ansible all -i <target_ip_address>, -u ansible -m shell -a "df -h"
 ansible all -i <target_ip_address>, -u ansible -m command -a "uptime"
 ```
 
-# Step 7: Setup basic ansible.cfg, Inventory, and Playbook
+## Step 8: Setup basic ansible.cfg, Inventory, and Playbook
 
 When managing multiple servers, you should group your settings into files. Create a directory on your control node (as the ansible user) to host these files:
 ```bash
@@ -230,7 +251,7 @@ This is the general overview of a playbook:
 
     - name: "Description of Task 2 (Using a Condition, Loop, and Notification)"
       module_name:
-        parameter_1: "{{ item }}"        # Loops through the list below
+        parameter_1: "{% raw %}{{ item }}{% endraw %}"       # Loops through the list below
       loop:                             # (Optional) Execute this task multiple times
         - "item_value_A"
         - "item_value_B"
@@ -293,17 +314,17 @@ To run your playbook, use the `ansible-playbook` command:
 ansible-playbook playbook.yaml
 ```
 
-# How to translate a Shell Script to an Ansible Playbook
+## How to translate a Shell Script to an Ansible Playbook
 
-## Case 1: Nginx setup
+### Case 1: Nginx setup
 
 #### Scenario Description
 
 Let's say we have the following bash script:
 ```bash
 #!/bin/bash
-sudo apt-get update
-sudo apt-get install -y nginx
+sudo apt update
+sudo apt install -y nginx
 echo "<h1>Welcome to my website</h1>" | sudo tee /var/www/html/index.html
 sudo systemctl restart nginx
 ```
@@ -340,7 +361,7 @@ Let's have a look here:
 ```
 While you can use the shell module in Ansible, the best practice is to use dedicated modules. Dedicated modules are *idempotent*, meaning they will only make changes if the system is not already in the desired state.
 
-## Case 2: Managing Custom Application Logs
+### Case 2: Managing Custom Application Logs
 
 #### Scenario Description
 The objective is to do the following:
@@ -452,7 +473,7 @@ The playbook demonstrates how the `file` module can safely initialize a file if 
 3. The Importance of `changed_when: false`
 By default, running a `command` in Ansible will always show a status of "Changed" in yellow, even if the command was just a diagnostic test. Introducing `changed_when: false` is an excellent intermediate best practice, as it ensures Ansible's final run summary remains accurate.
 
-## Case 3: Log auditing
+### Case 3: Log auditing
 
 #### Scenario Description
 The objective is to scan a custom application log (`/var/log/myapp.log`) for any entries containing `ERROR` or `CRITICAL`.
