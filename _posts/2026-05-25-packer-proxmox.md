@@ -1,7 +1,7 @@
 ---
 title: Packer in Proxmox VE
 date: 2026-05-25 17:30:00 +0300
-categories: iac
+categories: IaC
 tags: proxmox sops age packer                  # Tag names should always be lowercase
 image:
   path: /assets/img/headers/packer-proxmox.webp
