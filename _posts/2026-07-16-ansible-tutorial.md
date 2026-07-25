@@ -79,7 +79,7 @@ sudo visudo -f /etc/sudoers.d/ansible
 ```bash
 ansible ALL=(ALL) NOPASSWD:ALL
 ```
-3. Save and exit by typing `:wq`
+3. Save by typing `CTRL+O` and exit by typing `CTRL+X`
 
 ## Step 4: Edit hosts file from the Controller Machine
 
