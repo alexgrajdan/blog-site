@@ -73,7 +73,8 @@ resource "google_compute_instance" "gcp_instance" {
   }
 
   network_interface {
-    network = "default"
+    network    = google_compute_network.custom_network.id
+    subnetwork = google_compute_subnetwork.terraform_subnet.id
     access_config {
       // Ephemeral public IP
     }
