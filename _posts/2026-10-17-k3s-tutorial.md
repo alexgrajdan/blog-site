@@ -1,16 +1,16 @@
 ---
-title: k3s - Lightweight Kubernetes
+title: K3S - Lightweight Kubernetes
 date: 2026-10-17 11:00:00 +0300
 categories: k8s
 tags: kubernetes                    # Tag names should always be lowercase
 image:
-  path: /assets/img/headers/
-  lqip: data:image/webp;base64,abc
+  path: /assets/img/headers/k3s-tutorial.webp
+  lqip: data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAAAwBACdASoUAAsAPpE4l0eloyIhMAgAsBIJZACw7YvW327yVtV8OJWkRYAA/vPO0hS6pJqbKdacBIShckH3kkm95sLI2GVdf3Udz6ryJzIZtSd0EH1lItaFlA1xiOHUEev9xOh//nYb5SnVq637eAZ6/r/6bKWGLumpbBvxP/cSdMOYVAJJB9Wm/E/YeN2z/ZGoFa9/cdVTGo1AAAA=
 ---
 
-# What is k3s ?
+# What is K3S ?
 
-**k3s** is a lightweight, fully compliant, CNCF-certified Kubernetes distribution originally developed by Rancher Labs (now part of SUSE). It packages Kubernetes into a single binary (under ~100MB) by stripping out legacy, alpha, and in-tree cloud provider code, and replacing heavy defaults with lightweight alternatives.
+**K3S** is a lightweight, fully compliant, CNCF-certified Kubernetes distribution originally developed by Rancher Labs (now part of SUSE). It packages Kubernetes into a single binary (under ~100MB) by stripping out legacy, alpha, and in-tree cloud provider code, and replacing heavy defaults with lightweight alternatives.
 
 ### Pros & Cons
 
@@ -84,6 +84,9 @@ sudo k3s kubectl get nodes
 To manage the cluster from your local machine using standard `kubectl`:
 
 - Copy `/etc/rancher/k3s/k3s.yaml` from the control plane node to your local `~/.kube/config`.
+```bash
+ssh -t <username>@<control-plane-ip> "sudo cat /etc/rancher/k3s/k3s.yaml" > ~/.kube/config
+```
 - Edit the file on your local machine and replace `127.0.0.1` with your control plane IP:
 ```bash
 sed -i 's/127.0.0.1/<CONTROL_NODE_IP>/g' ~/.kube/config
@@ -93,19 +96,67 @@ sed -i 's/127.0.0.1/<CONTROL_NODE_IP>/g' ~/.kube/config
 kubectl get nodes
 ```
 
-### Step 5: Deploying a Test Workload
+#### Optional: Apply labels to worker nodes
+- Apply the `worker` label to the worker node:
+```bash
+kubectl label node <YOUR_WORKER_NODE> node-role.kubernetes.io/worker=worker
+```
+- Verify the label applied:
+```bash
+kubectl describe nodes <YOUR_WORKER_NODE>
+```
+
+### Step 5: Deploying a Demo Workload
 
 Verify cluster functionality by deploying a simple NGINX application:
 
+- Create the new `demo` namespace:
+```bash
+kubectl create namespace demo
+```
+
+#### Option A: Expose the service under LoadBalancer (Klipper)
+
 - Create a deployment and expose it via a LoadBalancer service (using Klipper):
 ```bash
-kubectl create deployment nginx-demo --image=nginx
-kubectl scale deployment nginx-demo --replicas=3
-kubectl expose deployment nginx-demo --port=80 --type=LoadBalancer
+kubectl create deployment nginx-demo --image=nginx -n demo
+kubectl scale deployment nginx-demo --replicas=3 -n demo
+kubectl expose deployment nginx-demo --port=8080 --target-port=80 --type=LoadBalancer -n demo
 ```
 - Check pod distribution across nodes and get the external IP:
 ```bash
-kubectl get pods -o wide
-kubectl get svc nginx-demo
+kubectl get pods,svc -n demo
+```
+- Test connectivity to the NGINX application:
+```bash
+curl http://<EXTERNAL_IP_OR_NODE_IP>:8080
 ```
 
+#### Option B: Expose the service under Traefik
+- Keep the service under ClusterIP:
+```bash
+kubectl expose deployment nginx-demo --port=80 -n demo
+```
+- Create the Ingress for nginx:
+```bash
+kubectl create ingress nginx-ingress --rule="/=nginx-demo:80" -n demo
+```
+- Check external IP form ingress:
+```bash
+kubectl get ingress -n demo
+```
+- Test connectivity to the NGINX application
+```bash
+curl http://<EXTERNAL_IP_FROM_INGRESS>
+```
+
+### Cleanup the deployment:
+```bash
+kubectl delete namespace demo
+```
+
+## Conclusion
+
+In this tutorial, you set up a multi-node Kubernetes cluster using **k3s** with a single control plane and two worker nodes, configured standard `kubectl` access from your local workstation, and deployed a test workload. 
+
+Thanks to its lightweight footprint, fast installation time, and full Kubernetes API compatibility, k3s is an exceptional choice for edge computing, IoT, CI/CD pipelines, and local multi-node labs. From here, you can explore adding persistent storage with Longhorn, installing custom Ingress controllers, or managing your cluster declaratively with GitOps tools like ArgoCD or Flux.
